@@ -1,0 +1,69 @@
+<html>
+    <body>
+        <p> Set hover threshold in millisecond</p>
+        <input type="number" min="0" max="100000" id="threshold" value="100">
+        <button id="button" onclick="setThreshold()"> Set threshold</button>
+        <p>current threshold: <span id="cr-th">100</span> ms</p>
+
+        <div class="hover-element border" id="hover-element">
+            hover-element
+        </div>
+
+        <div class="border">
+            <ul id="analytics-list">
+
+            </ul>
+        </div>
+
+    </body>
+    <style>
+        body {
+            margin: 100px;
+        }
+
+        .hover-element {
+            width: 250px;
+            height: 100px;
+            margin: auto;
+            margin: 100px;
+        }
+
+        .border {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        let threshold = 100
+        let timeout;
+
+        let hoverElement = document.getElementById("hover-element")
+        console.log(hoverElement)
+
+        hoverElement.addEventListener('mouseenter', function () {
+            timeout = setTimeout(function () {
+                sendAnalytics()
+            }, threshold)
+        })
+
+        hoverElement.addEventListener('mouseleave', function () {
+            if(timeout) {
+                clearTimeout(timeout)
+            }
+        })
+
+        function setThreshold() {
+            const thresholdValue = document.getElementById('threshold').value
+            threshold = parseInt(thresholdValue)
+            document.getElementById('cr-th').innerText = threshold;
+        }
+
+        function sendAnalytics () {
+            let analyticsList = document.getElementById('analytics-list');
+            let newAnalytics = document.createElement('li');
+            newAnalytics.appendChild(document.createTextNode("Hover Triggered " +  new Date().toLocaleString()));
+            analyticsList.appendChild(newAnalytics)
+        }
+
+    </script>
+
+</html>
