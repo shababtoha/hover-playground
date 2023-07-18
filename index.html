@@ -9,6 +9,7 @@
             hover-element
         </div>
 
+        <button onclick="clearAnalytics()"> Clear Analytics</button>
         <div class="border">
             <ul id="analytics-list">
 
@@ -22,10 +23,12 @@
         }
 
         .hover-element {
-            width: 250px;
-            height: 100px;
+            width: 200px;
+            height: 20px;
             margin: auto;
             margin: 100px;
+            resize: both;
+            overflow: auto;
         }
 
         .border {
@@ -62,6 +65,10 @@
             let newAnalytics = document.createElement('li');
             newAnalytics.appendChild(document.createTextNode("Hover Triggered " +  new Date().toLocaleString()));
             analyticsList.appendChild(newAnalytics)
+        }
+
+        function clearAnalytics() {
+            document.getElementById('analytics-list').innerHTML = "";
         }
 
     </script>
